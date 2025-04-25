@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prathyusha Dokku | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-color: #2c3e50;
@@ -14,59 +15,79 @@
       --section-bg-even: #ecf0f1;
       --text-color: #333;
       --nav-height: 60px;
+      --transition: 0.3s ease;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Roboto', sans-serif;
       color: var(--text-color);
       background: var(--background);
     }
     header {
       position: fixed; top: 0; width: 100%; height: var(--nav-height);
-      background: white; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 100;
+      background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 100;
     }
     nav a {
       margin: 0 15px; text-decoration: none; color: var(--primary-color);
-      font-weight: 600; position: relative; padding: 5px;
+      font-weight: 500; position: relative; padding: 10px;
     }
     nav a::after {
       content: '';
-      position: absolute; left: 0; bottom: -2px;
+      position: absolute; left: 0; bottom: 5px;
       width: 0; height: 3px; background: var(--accent-color);
-      transition: width 0.3s ease;
+      transition: width var(--transition);
     }
-    nav a:hover::after { width: 100%; }
-    main { padding-top: calc(var(--nav-height) + 20px); max-width: 900px; margin: 0 auto; }
-    section { margin: 60px 0; padding: 20px; border-radius: 8px; }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    main { padding-top: calc(var(--nav-height) + 30px); max-width: 1000px; margin: 0 auto; }
+    section { margin: 80px 0; padding: 40px 20px; border-radius: 8px; transition: background var(--transition); }
     section:nth-of-type(even) { background: var(--section-bg-even); }
-    h1, h2 { color: var(--secondary-color); margin-bottom: 15px; }
-    p, li { line-height: 1.6; margin-bottom: 10px; }
-    .section-content { padding-left: 10px; }
-    ul { list-style: disc; margin-left: 20px; }
-    .button {
-      display: inline-block; background: var(--accent-color);
-      color: #fff; padding: 8px 12px; border: none; border-radius: 4px;
-      text-decoration: none; font-weight: 600; margin-top: 10px; margin-right: 10px;
-      cursor: pointer;
+    h1, h2 { color: var(--secondary-color); margin-bottom: 20px; }
+    p, li { line-height: 1.6; margin-bottom: 15px; }
+    .section-content { padding-left: 15px; }
+    ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 20px; }
+    ul li { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform var(--transition); }
+    ul li:hover { transform: translateY(-5px); }
+    .button { display: inline-block; background: var(--accent-color); color: #fff; padding: 10px 16px;
+      border: none; border-radius: 4px; text-decoration: none; font-weight: 500; margin: 10px 10px 0 0; cursor: pointer;
+      transition: background var(--transition);
     }
-    .button:hover { opacity: 0.9; }
-    .section-image {
-      max-width: 80%; height: auto;
-      border-radius: 8px; margin: 15px 0;
-    }
-    /* Education Bar Graph SVG styling */
-    .bar-graph text { font-size: 14px; fill: var(--secondary-color); }
-    a.profile-button { background: var(--accent-alt); }
+    .button:hover { background: var(--primary-color); }
+    .section-image { width: 100%; height: auto; border-radius: 8px; margin: 20px 0; }
+    .skills { display: flex; flex-wrap: wrap; gap: 20px; }
+    .skill { flex: 1 1 calc(50% - 20px); background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .skill h4 { margin-bottom: 10px; }
+    .bar { background: #ddd; border-radius: 4px; overflow: hidden; height: 12px; }
+    .bar div { height: 100%; background: var(--accent-alt); transition: width var(--transition); }
+    footer { text-align: center; padding: 20px 0; font-size: 0.9rem; color: #777; }
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
   </style>
+  <script>
+    // Scrollspy for nav active link
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('nav a');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(sec => {
+          const top = sec.offsetTop - 80;
+          if (pageYOffset >= top) current = sec.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').includes(current)) link.classList.add('active');
+        });
+      });
+    });
+  </script>
 </head>
 <body>
   <header>
     <nav>
       <a href="#home">Home</a>
       <a href="#about">About</a>
-      <a href="#experience">Work Experience</a>
+      <a href="#experience">Work</a>
       <a href="#projects">Projects</a>
       <a href="#education">Education</a>
       <a href="#certificates">Certificates</a>
@@ -77,78 +98,93 @@
   <main>
     <section id="home">
       <h1>Hi, I'm Prathyusha Dokku</h1>
-      <img src="1000009305.jpg" alt="Portrait of Prathyusha" class="section-image">
-      <p>Machine Learning, Computer Vision & Generative AI Engineer.</p>
+      <img src="assets/home.jpg" alt="Portrait of Prathyusha" class="section-image">
+      <p>Machine Learning, Computer Vision & Generative AI Engineer crafting human-like vision algorithms.</p>
     </section>
-
     <section id="about">
       <h2>About Me</h2>
       <img src="assets/about.jpg" alt="AI concept illustration" class="section-image">
       <div class="section-content">
-        <p>Innovative ML & Generative AI Engineer with 1.5+ years of experience across NLP, Computer Vision, and Deep Learning. Skilled in LLMs, RAG, GANs, and multimodal systems. Passionate about building AI solutions for real-world challenges in automation and image processing.</p>
-        <p>My life dream is to invent a vision algorithm that work just like the human eye + brain; this is my first goal toward building a human-like robot. I believe that if humans were created, we can also create beings that think and perceive like us, to achieve this we need to harness the true power of technology.</p>
+        <p>Innovative ML & Generative AI Engineer with 1.5+ years of experience across NLP, Computer Vision, and Deep Learning. Skilled in LLMs, RAG, GANs, and multimodal systems.</p>
+        <p>My dream: Create vision algorithms that mimic the human brain—my first step toward building human-like robots. I believe if humans are created, we can engineer beings to think and perceive as we do, unlocking technology's true power.</p>
       </div>
     </section>
-
     <section id="experience">
       <h2>Work Experience</h2>
-      <div class="section-content">
-        <h3>ANTLABS, Machine Learning & Generative AI Engineer (May 2024 – Aug 2024)</h3>
-        <ul>
-          <li>Built a hybrid RAG-LLaMA system with ChromaDB for efficient document understanding and QA.</li>
-          <li>Engineered APIs to integrate LLaMA into legacy workflows, optimizing for scalability and cost.</li>
-        </ul>
-        <h3>SIU Carbondale, Research Assistant (Jan 2024 – Apr 2025)</h3>
-        <ul>
-          <li>Developed Faster R-CNN & Mask R-CNN models for object detection & segmentation on environmental datasets.</li>
-          <li>Created a GAN Brightener + ViT-FastRCNN pipeline for low-light satellite imagery enhancement.</li>
-        </ul>
-        <h3>Manthan Labs, Generative AI Intern (May 2023 – Dec 2023)</h3>
-        <ul>
-          <li>Implemented hallucination detection & mitigation using Google API, T5, and FAVA model.</li>
-          <li>Built a real-time multilingual earphone translator using Whisper API & ElevenLabs TTS.</li>
-        </ul>
-      </div>
+      <ul>
+        <li>
+          <h3>ANTLABS, ML & Generative AI Engineer</h3>
+          <p><small>May 2024 – Aug 2024</small></p>
+          <p>Built hybrid RAG-LLaMA system with ChromaDB for real-time document QA. Engineered scalable APIs to integrate LLaMA into legacy platforms.</p>
+        </li>
+        <li>
+          <h3>SIU Carbondale, Research Assistant</h3>
+          <p><small>Jan 2024 – Apr 2025</small></p>
+          <p>Developed Faster R-CNN & Mask R-CNN for environmental detection. Innovated GAN Brightener + ViT-FastRCNN pipeline for low-light satellite imagery.</p>
+        </li>
+        <li>
+          <h3>Manthan Labs, Generative AI Intern</h3>
+          <p><small>May 2023 – Dec 2023</small></p>
+          <p>Implemented multimodal hallucination detection & mitigation using Google API, T5, and FAVA. Also, Built real-time translator<a href="https://github.com/prathyusha2020/Speech_Translation" class="button" target="_blank">View</a></p> with Whisper & ElevenLabs.</p>
+        </li>
+      </ul>
     </section>
-
     <section id="projects">
       <h2>Projects</h2>
-      <div class="section-content">
-        <ul>
-          <li><a class="project-link" href="https://github.com/username/MineTXIM" target="_blank">MineTXIM: Multimodal Knowledge Extraction</a> – VQA model combining ResNet-50 & BERT.</li>
-          <li><a class="project-link" href="https://github.com/username/Objeckto" target="_blank">Objeckto: Object Detection & Segmentation</a> – Mask R-CNN & Faster R-CNN on MS COCO.</li>
-          <li><a class="project-link" href="https://github.com/username/lunarbot" target="_blank">Lunar Bot for NASA Challenge</a> – Designed & built a lunar surface digger robot using ROS2.</li>
-        </ul>
-      </div>
+      <ul>
+        <li>
+          <h3>MineTXIM</h3>
+          <p>Multimodal VQA with ResNet-50 & BERT <a href="https://github.com/prathyusha2020/Mine_TXIM" class="button" target="_blank">View</a></p>
+        </li>
+        <li>
+          <h3>Objeckto</h3>
+          <p>COCO object detection & segmentation <a href="https://github.com/prathyusha2020/Objecktoo" class="button" target="_blank">View</a></p>
+        </li>
+        
+      </ul>
     </section>
-
     <section id="education">
-      <h2>Education</h2>
-      <div class="section-content">
-        <!-- Inline SVG Bar Graph -->
-        <svg class="bar-graph" width="100%" height="120">
-          <rect x="50" y="20" width="200" height="20" fill="var(--accent-color)"></rect>
-          <text x="260" y="35">M.Sc. Computer Science (4.0 GPA)</text>
-          <rect x="50" y="60" width="150" height="20" fill="var(--accent-alt)"></rect>
-          <text x="210" y="75">B.Sc. Computer Science (3.26 GPA)</text>
-        </svg>
+      <h2>Education & Skills</h2>
+      <div class="skills">
+        <div class="skill">
+          <h4>M.Sc. Computer Science</h4>
+          <div class="bar"><div style="width:100%"></div></div>
+          <p>GPA: 4.0</p>
+        </div>
+        <div class="skill">
+          <h4>B.Sc. Computer Science</h4>
+          <div class="bar"><div style="width:82%"></div></div>
+          <p>GPA: 3.26</p>
+        </div>
       </div>
     </section>
-
     <section id="certificates">
       <h2>Certificates</h2>
-      <div class="section-content">
-        <ul>
-          <li>Introduction to Deep Learning with Python (DataCamp)</li>
-          <li>Image Processing in Python (DataCamp)</li>
-          <li>Advanced Deep Learning with Keras (DataCamp)</li>
-          <li>Introduction to Large Language Models (Coursera)</li>
-        </ul>
-      </div>
+      <ul>
+        <li>Deep Learning with Python (DataCamp)</li>
+        <li>Image Processing in Python (DataCamp)</li>
+        <li>Advanced Deep Learning with Keras (DataCamp)</li>
+        <li>Large Language Models (Coursera)</li>
+      </ul>
     </section>
-
     <section id="publications">
       <h2>Publications</h2>
-      <div class="section-content">
-        <ul>
-          <li><strong><a href="https://link.springer.com/chapter/10.1007/978-3-031-66044-3_16" target="_blank">Identification of Wild Animals in
+      <ul>
+        <li>“<a href="https://link.springer.com/chapter/10.1007/978-3-031-66044-3_16" target="_blank">Identification of Wild Animals...</a>” – PerSOM 2023</li>
+        <li>“<a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=1vTJmP8AAAAJ&citation_for_view=1vTJmP8AAAAJ:u-x6o8ySG0sC" target="_blank">Exploring AI in Cultural Heritage</a>” – SArch 2023</li>
+        <li>“Landslide Monitoring: DenseNET & Segmentation” – Under Review</li>
+      </ul>
+    </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p><strong>Email:</strong> <a href="mailto:prathyusha.dokku@siu.edu">prathyusha.dokku@siu.edu</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+16188180226">+1 618-818-0226</a></p>
+      <a href="https://linkedin.com/in/yourprofile" class="button" target="_blank">LinkedIn</a>
+      <a href="https://scholar.google.com/citations?user=1vTJmP8AAAAJ&hl=en" class="button profile-button" target="_blank">Google Scholar</a>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Prathyusha Dokku &bull; Built with passion for AI & robotics
+  </footer>
+</body>
+</html>
