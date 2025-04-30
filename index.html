@@ -105,6 +105,32 @@
       color: #666;
       margin-bottom: 8px;
     }
+    
+  /* Make the container a flex row */
+  #home .home-container {
+    display: flex;
+    align-items: center;       /* vertically center */
+    gap: 1.5rem;               /* space between image & text */
+  }
+
+  /* Control image size */
+  #home img {
+    width: 200px;
+    height: auto;
+    flex-shrink: 0;            /* don’t let it shrink smaller */
+  }
+
+  /* Optional: tweak your headings */
+  #home .home-text h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2rem;
+  }
+  #home .home-text h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: normal;
+  }
+
   </style>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -144,12 +170,18 @@
   </header>
   <main>
     <!-- Home -->
-    <section id="home">
+   <section id="home">
+  <div class="home-container">
+    <img src="1000009305.png" alt="Portrait of Prathyusha">
+    <div class="home-text">
       <h1>Hi, I'm Prathyusha Dokku</h1>
-      <img src="1000009305.jpg" alt="Portrait of Prathyusha" style="width: 200px; height: auto;">
+      <h2>Machine Learning, Computer Vision &amp; Generative AI Engineer crafting human-like vision algorithms.</h2>
+    </div>
+  </div>
+</section>
 
-      <p>Machine Learning, Computer Vision & Generative AI Engineer crafting human-like vision algorithms.</p>
-    </section>
+
+
     <!-- About -->
     <section id="about">
       <h2>About Me</h2>
